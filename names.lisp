@@ -91,26 +91,9 @@
   (while (choose n)
     (format-totals)))
 
-(defun print-usage ()
-  (princ
-   "Names
-<number> is the number of names to process at a time.
-
-Usage:
-    $ names <number>
-"))
-
-(defun main (&optional n &rest argv)
-  (declare (ignore argv))
+(defun start (n)
   (load-database)
-  (when n
-    (format-totals)
-    (run (parse-integer n))
-    (save-db *remaining*)
-    (format-totals)
-    (uiop:quit 0))
-  (print-usage)
-  (uiop:quit 1))
-
-
-;;; vim: set ft=lisp lisp:
+  (format-totals)
+  (run n)
+  (save-db *remaining*)
+  (format-totals))

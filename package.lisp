@@ -5,5 +5,6 @@
   (:export #:load-database)
   (:export #:format-totals)
   (:export #:run)
+  (:export #:start)
   (:export #:save-db))
 
