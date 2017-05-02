@@ -21,12 +21,12 @@
   "Pick one element of set, and make a list of it."
   (random-elt set))
 
-
 (defun take-n-names (n)
   (let ((names '()))
-   (dotimes (i n)
-     (push (one-of *db*) names))
-   names))
+   (while (< (length names) n)
+     (push (one-of *db*) names)
+     (setf names (remove-duplicates names :test #'string-equal)))
+   (sort names #'string-equal)))
 
 (defun print-n-names (n)
   "Print n names with number"
@@ -47,15 +47,17 @@
       (remove-from-db (nth i names))))
  t)
 
-(defun choose (n)
- (let ((names (print-n-names n)))
+(defun print-choose-help()
   (format *query-io* "~%Choose a number to keep de name. <q>quit the program,")
   (format *query-io* "~%0 the delete all names.")
   (format *query-io* "~%Choose a number: ")
-  (force-output *query-io*)
-  (let ((answer (read)))
-    (if (integerp answer) (remove-but-n (1- answer) names) nil))))
+  (force-output *query-io*))
 
+(defun choose (n)
+ (let ((names (print-n-names n)))
+   (print-choose-help)
+   (let ((answer (read)))
+     (if (integerp answer) (remove-but-n (1- answer) names) nil))))
 
 (defun get-file (filename)
   "Read whole file"
@@ -64,12 +66,22 @@
           while line
           collect line)))
 
+; (define-condition database-file-not-available (error)
+;   ((text :initarg :text :reader text)))
+
+(defun help ()
+  (princ
+    "There has te be a 'names.db' or a 'results.db' present in this directory.
+")
+  nil)
 
 (defun load-database ()
   "Load file into memory."
   (if (probe-file *remaining*)
     (setf *db* (get-file *remaining*))
-    (setf *db* (get-file *original*))))
+    (if (probe-file *original*)
+      (setf *db* (get-file *original*))
+      (help))))
 
 (defun save-db (filename)
   "Save current *db* to file."
@@ -87,13 +99,10 @@
   (format t "================================~%")
   (terpri))
 
-(defun run (n)
-  (while (choose n)
-    (format-totals)))
-
 (defun start (n)
-  (load-database)
-  (format-totals)
-  (run n)
-  (save-db *remaining*)
-  (format-totals))
+  (when (load-database)
+    (format-totals)
+    (while (and (>= (length *db*) n) (choose n))
+      (format-totals))
+    (save-db *remaining*)
+    (format-totals)))
