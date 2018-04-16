@@ -61,7 +61,7 @@
 
 (defun get-file (filename)
   "Read whole file"
-  (with-open-file (stream filename)
+  (with-open-file (stream filename :external-format :utf-8)
     (loop for line = (read-line stream nil)
           while line
           collect line)))
