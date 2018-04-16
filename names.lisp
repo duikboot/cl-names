@@ -48,7 +48,7 @@
  t)
 
 (defun print-choose-help()
-  (format *query-io* "~%Choose a number to keep the name. ,")
+  (format *query-io* "~%Choose a number to keep the name. You could also choose")
   (format *query-io* "~% <q> to quit the program")
   (format *query-io* "~%  0  to delete all names")
   (format *query-io* "~%Choose a number: ")
