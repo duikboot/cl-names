@@ -1,9 +1,9 @@
 ;;;; names.asd
 
 (asdf:defsystem #:names
-  :description "Describe names here"
-  :author "Your Name <your.name@example.com>"
-  :license "Specify license here"
+  :description "Handy utility to cherrypick the best name from a database of names"
+  :author "Arjen Dijkstra <dijkstra.arjen@gmail.com>"
+  :license "MIT"
   :depends-on (#:uiop)
   :serial t
   :components ((:file "package")

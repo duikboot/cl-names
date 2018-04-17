@@ -48,8 +48,9 @@
  t)
 
 (defun print-choose-help()
-  (format *query-io* "~%Choose a number to keep de name. <q>quit the program,")
-  (format *query-io* "~%0 the delete all names.")
+  (format *query-io* "~%Choose a number to keep the name. You could also choose")
+  (format *query-io* "~% <q> to quit the program")
+  (format *query-io* "~%  0  to delete all names")
   (format *query-io* "~%Choose a number: ")
   (force-output *query-io*))
 
@@ -71,7 +72,7 @@
 
 (defun help ()
   (princ
-    "There has te be a 'names.db' or a 'results.db' present in this directory.
+    "There has to be a 'names.db' or a 'results.db' present in this directory. Also be sure to specify the number of names to process at a time.
 ")
   nil)
 
@@ -97,6 +98,7 @@
   (format t "================================~%")
   (format t "=~10d names left         =~%" (length *db*))
   (format t "================================~%")
+  (terpri)
   (terpri))
 
 (defun start (n)
