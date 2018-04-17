@@ -4,8 +4,8 @@
 exec ros -Q -- $0 "$@"
 |#
 
-(unless (find-package :uiop)
-  (ql:quickload :uiop :silent t))
+(unless (find-package :alexandria)
+  (ql:quickload '(:uiop :alexandria) :silent t))
 
 (ql:quickload :names :silent t)
 
@@ -15,15 +15,16 @@ exec ros -Q -- $0 "$@"
 <number> is the number of names to process at a time.
 
 Usage:
-    $ names <number>
+    $ names <number> [boy|girl]
 ")
  (names:help))
 
-(defun main (&optional n &rest argv)
+(defun main (&optional n gender &rest argv)
   (declare (ignore argv))
   (when n
-    (names:start (parse-integer n))
-    (uiop:quit 0))
+    (when gender
+      (names:start (parse-integer n) gender)
+      (uiop:quit 0)))
   (print-usage)
   (uiop:quit 1))
 

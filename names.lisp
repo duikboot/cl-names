@@ -3,8 +3,8 @@
 (in-package #:names)
 
 
-(defparameter *original* "names.db")
-(defparameter *remaining* "results.db")
+(defvar *original* "names.db")
+(defvar *remaining* "results.db")
 
 (defvar *db* '())
 
@@ -101,7 +101,13 @@
   (terpri)
   (terpri))
 
-(defun start (n)
+(defun start (n gender)
+  (alexandria:switch (gender :test #'string=)
+    ("boy" (setf *original* "boys-names.db"
+                 *remaining* "boys-results.db"))
+    ("girl" (setf *original* "girls-names.db"
+                  *remaining* "girls-results.db"))
+    (t (help) (uiop:quit 1)))
   (when (load-database)
     (format-totals)
     (while (and (>= (length *db*) n) (choose n))
