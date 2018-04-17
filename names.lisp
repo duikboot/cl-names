@@ -3,8 +3,8 @@
 (in-package #:names)
 
 
-(defvar *original* "names.db")
-(defvar *remaining* "results.db")
+(defvar *original* nil)
+(defvar *remaining* nil)
 
 (defvar *db* '())
 
