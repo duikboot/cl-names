@@ -72,7 +72,7 @@
 
 (defun help ()
   (princ
-    "There has to be a 'names.db' or a 'results.db' present in this directory. Also be sure to specify the number of names to process at a time.
+    "There has to be a 'girls-names.db', 'boys-names.db'  present in this directory. Also be sure to specify the number of names to process at a time.
 ")
   nil)
 
