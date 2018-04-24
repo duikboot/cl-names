@@ -88,7 +88,8 @@
   "Save current *db* to file."
   (with-open-file (out filename
                        :direction :output
-                       :if-exists :supersede :external-format :utf-8)
+                       :if-exists :supersede
+                       :external-format :utf-8)
     (format out "~{~A~%~}" *db*)))
 
 
